@@ -1,0 +1,77 @@
+{
+  "name": "@Blackbaud-PaulCrowder/grunt-phantomcss-slimerjs",
+  "description": "Plugin to do CSS regression testing via PhantomCSS and SlimerJS.",
+  "version": "0.4.1",
+  "homepage": "https://github.com/Blackbaud-PaulCrowder/grunt-phantomcss-slimerjs",
+  "author": {
+    "name": "Paul Crowder",
+    "email": "paul.crowder@blackbaud.com"
+  },
+  "contributors": [
+    {
+      "name": "Larry Davis",
+      "email": "lazd@lazd.net",
+      "url": "https://github.com/lazd"
+    },
+    {
+      "name": "Aliaksei Sapach",
+      "email": "dreamsonic@tut.by",
+      "url": "https://github.com/asapach"
+    },
+    {
+      "name": "Anselm Hannemann",
+      "email": "info@anselm-hannemann.com",
+      "url": "http://helloanselm.com/"
+    },
+    {
+      "name": "Micah Godbolt",
+      "email": "micahgodbolt@gmail.com",
+      "url": "https://github.com/micahgodbolt"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Blackbaud-PaulCrowder/grunt-phantomcss-slimerjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Blackbaud-PaulCrowder/grunt-phantomcss-slimerjs/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Blackbaud-PaulCrowder/grunt-phantomcss-slimerjs/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-jscs": "^2.0.0",
+    "jit-grunt": "^0.8.0",
+    "time-grunt": "^0.4.0"
+  },
+  "dependencies": {
+    "bower": "^1.3.9",
+    "path": "^0.4.9",
+    "phantomcss": "^0.10.1",
+    "slimerjs": "0.9.6",
+    "temporary": "0.0.8"
+  },
+  "keywords": [
+    "gruntplugin",
+    "phantomcss",
+    "css",
+    "regression",
+    "test",
+    "phantomjs",
+    "grunt"
+  ]
+}

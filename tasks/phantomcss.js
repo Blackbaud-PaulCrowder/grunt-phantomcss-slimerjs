@@ -23,7 +23,7 @@
         grunt.registerMultiTask('phantomcss', 'CSS Regression Testing', function () {
             var cwd,
                 done = this.async(),
-                failureCount, // The number of failed tests
+                failureCount = 0, // The number of failed tests
                 lastLine = 0, // The number of tempfile lines already read
                 messageCheckTimeout, // Timeout ID for message checking loop
                 messageHandlers,

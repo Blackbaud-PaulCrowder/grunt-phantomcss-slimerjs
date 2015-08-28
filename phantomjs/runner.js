@@ -89,14 +89,14 @@
         },
         fileNameGetter: function (root, filename) {
             var exists,
-                name = phantomcss.pathToTest + args.screenshots + '/' + filename,
+                name = phantomcss.pathToTest + args.screenshots + s + filename,
                 stats;
 
             try {
                 exists = fs.isFile(name + '.png');
             } catch (ex) {
                 // When using SimerJS this call throws an error with the following result code when the file isn't found.
-                if (ex.result === 2152857606) {
+                if (ex.result === 2152857606 || ex.result === 2152857618) {
                     exists = false;
                 } else {
                     throw ex;
@@ -126,7 +126,7 @@
         phantom.casper = casper;
         phantom.phantomcss = phantomcss;
         casper.then(function () {
-            phantomcss.pathToTest = path.dirname(testSuite) + '/';
+            phantomcss.pathToTest = testSuite.substr(0, testSuite.lastIndexOf(s) + 1);
             sendMessage('onLog', 'Set pathToTest to ' + phantomcss.pathToTest + '...');
         });
         require(testSuite);

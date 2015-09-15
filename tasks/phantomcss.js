@@ -23,12 +23,12 @@
         grunt.registerMultiTask('phantomcss', 'CSS Regression Testing', function () {
             var cwd,
                 done = this.async(),
-                failureCount = 0, // The number of failed tests
                 lastLine = 0, // The number of tempfile lines already read
                 messageCheckTimeout, // Timeout ID for message checking loop
                 messageHandlers,
                 options,
-                tempFile;
+                tempFile,
+                totalFailureCount = 0;
 
             function deleteDiffScreenshots(folderpath) {
                 // Find diff/fail files
@@ -56,6 +56,8 @@
             }
 
             function cleanup(error) {
+                var allScreenshots;
+
                 // Remove temporary file
                 tempFile.unlink();
 
@@ -64,7 +66,7 @@
                     grunt.file.mkdir(folderpath + '/' + options.results);
 
                     // Copy fixtures, diffs, and failure images to the results directory
-                    var allScreenshots = grunt.file.expand(path.join(folderpath + '/' + options.screenshots, '**.png'));
+                    allScreenshots = grunt.file.expand(path.join(folderpath + '/' + options.screenshots, '**.png'));
 
                     allScreenshots.forEach(function (filepath) {
                         grunt.file.copy(filepath, path.join(
@@ -76,15 +78,17 @@
                     deleteDiffScreenshots(folderpath);
                 });
 
-                done(error || failureCount === 0);
+                done(error || totalFailureCount === 0);
             }
 
             function checkForMessages(stopChecking) {
+                var lines;
+
                 // Disable logging temporarily
                 grunt.log.muted = true;
 
                 // Read the file, splitting lines on \n, and removing a trailing line
-                var lines = grunt.file.read(tempFile.path).split('\n').slice(0, -1);
+                lines = grunt.file.read(tempFile.path).split('\n').slice(0, -1);
 
                 // Re-enable logging
                 grunt.log.muted = false;
@@ -146,9 +150,13 @@
                     grunt.log.writeln('Timeout while processing ' + path.basename(test.filename));
                 },
                 onComplete: function (allTests, noOfFails, noOfErrors) {
+                    var failureCount,
+                        noOfPasses;
+
                     if (allTests.length) {
-                        var noOfPasses = allTests.length - failureCount;
                         failureCount = noOfFails + noOfErrors;
+                        noOfPasses = allTests.length - failureCount;
+                        totalFailureCount += failureCount;
 
                         if (failureCount === 0) {
                             grunt.log.ok('All ' + noOfPasses + ' tests passed!');
